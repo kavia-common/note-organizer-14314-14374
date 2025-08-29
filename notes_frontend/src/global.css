@@ -1,15 +1,28 @@
 /**
- * WHAT IS THIS FILE?
- *
- * Globally applied styles for the ultralight Qwik template.
- * Uses a minimalistic light theme with specified color scheme.
+ * Global styles for notes_frontend
+ * Minimalistic, light theme
+ * Colors:
+ *  - primary: #1976D2
+ *  - secondary: #424242
+ *  - accent: #FFC107
  */
 
 :root {
-  --primary-color: #000000;
-  --secondary-color: #333333;
-  --accent-color: #0078d4;
-  --background-color: #ffffff;
+  --color-primary: #1976d2;
+  --color-secondary: #424242;
+  --color-accent: #ffc107;
+
+  --color-text: #1f2937; /* neutral-800 */
+  --color-text-muted: #6b7280; /* neutral-500 */
+  --color-bg: #ffffff;
+  --color-surface: #f9fafb;
+  --color-border: #e5e7eb;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 html {
@@ -31,11 +44,246 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
-  color: var(--primary-color);
-  line-height: inherit;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout primitives */
+.app {
+  display: grid;
+  grid-template-rows: 56px 1fr;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-title {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.navbar-spacer {
+  flex: 1;
+}
+
+.nav-input {
+  width: 100%;
+  max-width: 480px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  outline: none;
+}
+.nav-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,118,210,0.15);
+}
+
+.nav-btn, .btn {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.btn-accent {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #333;
+}
+
+/* main layout */
+.main {
+  display: grid;
+  grid-template-columns: 260px 1fr 420px;
+  gap: 0;
+  min-height: calc(100vh - 56px);
+}
+
+/* sidebar */
+.sidebar {
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg);
+  padding: 12px;
+}
+
+.section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-text-muted);
+  margin: 12px 8px 6px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.list-item.active,
+.list-item:hover {
+  background: var(--color-surface);
+}
+
+/* notes list */
+.notes-list {
+  border-right: 1px solid var(--color-border);
+  overflow: auto;
+  background: var(--color-surface);
+}
+.notes-list .toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.note-card {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+.note-card:hover {
+  background: #fffef8;
+}
+.note-title {
+  font-weight: 600;
+}
+.note-meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* editor */
+.editor {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+}
+.editor .toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.editor-body {
+  padding: 12px;
+  min-height: 0;
+}
+.input, .textarea, .chips-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  outline: none;
+}
+.input:focus, .textarea:focus, .chips-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,118,210,0.15);
+}
+.textarea {
+  min-height: 320px;
+  resize: vertical;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.chip {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* auth */
+.auth-card {
+  max-width: 420px;
+  margin: 64px auto;
+  padding: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.auth-title {
+  margin: 0 0 12px;
+  color: var(--color-primary);
+}
+
+@media (max-width: 1100px) {
+  .main {
+    grid-template-columns: 220px 1fr;
+  }
+  .editor {
+    grid-column: span 1;
+  }
+}
+@media (max-width: 800px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  .notes-list {
+    border-right: none;
+  }
 }
